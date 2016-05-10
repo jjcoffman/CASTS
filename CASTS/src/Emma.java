@@ -17,8 +17,8 @@ import java.util.Scanner;
 class Emma 
 {
 	private static Emma emma = null;
-	String jarPath = "";
-	String separator = System.getProperty("file.separator");
+	private String jarPath = "";
+	private String separator = System.getProperty("file.separator");
 	
 	private Emma() {}
 	
