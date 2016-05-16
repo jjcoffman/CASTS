@@ -45,6 +45,7 @@ class MuJava
 		boolean loop = true;
 		while(loop)
 		{
+			@SuppressWarnings("resource")
 			Scanner scan = new Scanner(System.in);
 			//Get the path to the jar file from the user
 			System.out.println("What is the ABSOLUTE path to the .jar file?");
@@ -71,7 +72,7 @@ class MuJava
 	 */
 	private void MuCommand() throws IOException 
 	{
-		if(System.getProperty("os.name").matches("Mac OS X"))
+		if(System.getProperty("os.name").matches("Mac OS X") && makeConfig())
 			macMuCommand(path, jarPath);
 		else
 			winMuCommand(path, jarPath);
@@ -102,7 +103,7 @@ class MuJava
 	{
 		String output = "MuJava_HOME=" + path + "\n Debug_mode=false\n";
 		try{
-			 Writer w = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("mujava.config"), "utf-8"));
+			 Writer w = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path + "mujava.config"), "utf-8"));
 			 w.write(output);
 			 w.close();
 			 return true;
@@ -177,7 +178,7 @@ class MuJava
 		String[] exec = new String[2];
 		exec[0] = "java mujava.gui.GenMutantsMain"; //Start MuJava GUI for generating mutants.
 		exec[1] = "java mujava.gui.RunTestMain"; //Start MuJava GUI for running mutant tests options.
-		Execute.getExecute().exec(exec);
+		//Execute.getExecute().exec(exec);
 	}
 
 	/**
@@ -190,6 +191,6 @@ class MuJava
 		String[] exec = new String[2];
 		exec[0] = "java mujava.gui.GenMutantsMain"; //Start MuJava GUI for generating mutants.
 		exec[1] = "java mujava.gui.RunTestMain"; //Start MuJava GUI for running mutant tests options.
-		Execute.getExecute().exec(exec);
+		//Execute.getExecute().exec(exec);
 	}
 }

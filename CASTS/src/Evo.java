@@ -33,6 +33,7 @@ class Evo
 	 */
 	void EvoRunner()
 	{
+		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
 		
 		//Download EvoSuite to the casts directory

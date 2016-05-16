@@ -40,6 +40,7 @@ class Emma
 	 */
 	void EmmaRunner()
 	{
+		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
 		//Get the path to the jar file from the user
 		System.out.println("What is the ABSOLUTE path to the .jar file?");
