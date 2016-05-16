@@ -1,6 +1,9 @@
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
@@ -92,14 +95,21 @@ class MuJava
 	
 	/**
 	 * This creates the config file based on the chosen jar file and the download path.
-	 * @author Jonathan Coffman
+	 * @authors Jonathan Coffman, Chai Thoj
 	 *
 	 */
 	private boolean makeConfig() 
 	{
 		String output = "MuJava_HOME=" + path + "\n Debug_mode=false\n";
-		
-		//TODO Write out to config file, also need to look at adjusting the CLASSPATH for mac and windows
+		try{
+			 Writer w = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("mujava.config"), "utf-8"));
+			 w.write(output);
+			 w.close();
+			 return true;
+			 }
+		catch (IOException e){
+			 e.printStackTrace();
+			 }
 		return false;
 	}
 
@@ -158,26 +168,28 @@ class MuJava
 	}
 	
 	/**
-	 * Builds muJava Command for mac
-	 * @author Jonathan Coffman
+	 * Builds muJava Command for mac, it is assumed that the mujava.config file is in the current directory.
+	 * @authors Jonathan Coffman, Chai Thoj
 	 *
 	 */
 	private void macMuCommand(String muPath, String jarPath) throws IOException 
 	{
-		String[] exec = new String[1];
-		//TODO Run command to run on mac. should launch the muJava gui on the selected project
+		String[] exec = new String[2];
+		exec[0] = "java mujava.gui.GenMutantsMain"; //Start MuJava GUI for generating mutants.
+		exec[1] = "java mujava.gui.RunTestMain"; //Start MuJava GUI for running mutant tests options.
 		Execute.getExecute().exec(exec);
 	}
 
 	/**
 	 * This builds the windows muJava command
-	 * @author Jonathan Coffman
+	 * @authors Jonathan Coffman, Chai Thoj
 	 *
 	 */
 	private void winMuCommand(String muPath, String jarPath) 
 	{
-		String[] exec = new String[4];
-		//TODO Run command to run on windows. should launch the muJava gui on the selected project
+		String[] exec = new String[2];
+		exec[0] = "java mujava.gui.GenMutantsMain"; //Start MuJava GUI for generating mutants.
+		exec[1] = "java mujava.gui.RunTestMain"; //Start MuJava GUI for running mutant tests options.
 		Execute.getExecute().exec(exec);
 	}
 }
